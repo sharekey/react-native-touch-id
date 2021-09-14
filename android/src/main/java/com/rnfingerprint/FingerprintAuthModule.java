@@ -52,11 +52,6 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
     @ReactMethod
     public void isSupported(final Callback reactErrorCallback, final Callback reactSuccessCallback) {
-        final Activity activity = getCurrentActivity();
-        if (activity == null) {
-            return;
-        }
-
         int result = isFingerprintAuthAvailable();
         if (result == FingerprintAuthConstants.IS_SUPPORTED) {
             // TODO: once this package supports Android's Face Unlock,
@@ -72,9 +67,19 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
     @ReactMethod
     public void authenticate(final String reason, final ReadableMap authConfig, final Callback reactErrorCallback, final Callback reactSuccessCallback) {
         final Activity activity = getCurrentActivity();
-        if (inProgress || !isAppActive || activity == null) {
+
+        if (activity == null) {
+            reactErrorCallback.invoke("No activity", FingerprintAuthConstants.NO_ACTIVITY);
+        }
+        if (inProgress) {
+            reactErrorCallback.invoke("Already in progress", FingerprintAuthConstants.ALREADY_IN_PROGRESS);
             return;
         }
+        if (!isAppActive) {
+            reactErrorCallback.invoke("App is not active", FingerprintAuthConstants.APP_NOT_ACTIVE);
+            return;
+        }
+
         inProgress = true;
 
         int availableResult = isFingerprintAuthAvailable();
@@ -107,6 +112,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
         if (!isAppActive) {
             inProgress = false;
+            reactErrorCallback.invoke("App is not active");
             return;
         }
 
@@ -120,7 +126,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
         final Activity activity = getCurrentActivity();
         if (activity == null) {
-            return FingerprintAuthConstants.NOT_AVAILABLE; // we can't do the check
+            return FingerprintAuthConstants.NO_ACTIVITY; // we can't do the check
         }
 
         final KeyguardManager keyguardManager = getKeyguardManager();

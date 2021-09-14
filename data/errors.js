@@ -30,7 +30,11 @@ const codes = {
     NOT_AVAILABLE: 'NOT_AVAILABLE',
     NOT_ENROLLED: 'NOT_ENROLLED',
     AUTHENTICATION_FAILED: 'AUTHENTICATION_FAILED',
-    AUTHENTICATION_CANCELED: 'AUTHENTICATION_CANCELED'
+    AUTHENTICATION_CANCELED: 'AUTHENTICATION_CANCELED',
+
+    NO_ACTIVITY: 'NO_ACTIVITY',
+    ALREADY_IN_PROGRESS: 'ALREADY_IN_PROGRESS',
+    APP_NOT_ACTIVE: 'APP_NOT_ACTIVE'
   }
 };
 
@@ -86,7 +90,11 @@ const androidModuleErrorMap = {
   103: codes.androidModuleCodes.NOT_AVAILABLE,
   104: codes.androidModuleCodes.NOT_ENROLLED,
   105: codes.androidModuleCodes.AUTHENTICATION_FAILED,
-  106: codes.androidModuleCodes.AUTHENTICATION_CANCELED
+  106: codes.androidModuleCodes.AUTHENTICATION_CANCELED,
+
+  200: codes.androidModuleCodes.NO_ACTIVITY,
+  201: codes.androidModuleCodes.ALREADY_IN_PROGRESS,
+  202: codes.androidModuleCodes.APP_NOT_ACTIVE
 };
 
 const errors = {
