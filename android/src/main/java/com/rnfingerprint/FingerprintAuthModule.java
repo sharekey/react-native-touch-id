@@ -66,12 +66,17 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
     @TargetApi(Build.VERSION_CODES.M)
     @ReactMethod
     public void authenticate(final String reason, final ReadableMap authConfig, final Callback reactErrorCallback, final Callback reactSuccessCallback) {
+        final Activity activity = getCurrentActivity();
+
+        if (activity == null) {
+            reactErrorCallback.invoke("No activity", FingerprintAuthConstants.NO_ACTIVITY);
+        }
         if (inProgress) {
-            reactErrorCallback.invoke("Already in progress");
+            reactErrorCallback.invoke("Already in progress", FingerprintAuthConstants.ALREADY_IN_PROGRESS);
             return;
         }
         if (!isAppActive) {
-            reactErrorCallback.invoke("App is not active");
+            reactErrorCallback.invoke("App is not active", FingerprintAuthConstants.APP_NOT_ACTIVE);
             return;
         }
 
@@ -121,7 +126,7 @@ public class FingerprintAuthModule extends ReactContextBaseJavaModule implements
 
         final Activity activity = getCurrentActivity();
         if (activity == null) {
-            return FingerprintAuthConstants.NOT_AVAILABLE; // we can't do the check
+            return FingerprintAuthConstants.NO_ACTIVITY; // we can't do the check
         }
 
         final KeyguardManager keyguardManager = getKeyguardManager();
