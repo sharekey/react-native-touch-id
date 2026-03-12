@@ -50,13 +50,17 @@ export default {
 
 function createError(config, error) {
   const { unifiedErrors } = config || {};
+  const normalizedError = error || 'RCTTouchIDUnknownError';
+  const fallbackDetails = iOSErrors.RCTTouchIDUnknownError || { message: 'Touch ID Error' };
 
   if (unifiedErrors) {
-    return new TouchIDUnifiedError(getError(error));
+    return new TouchIDUnifiedError(getError(normalizedError));
   }
 
-  const details = iOSErrors[error];
-  details.name = error;
+  const details = {
+    ...(iOSErrors[normalizedError] || fallbackDetails),
+    name: normalizedError
+  };
 
-  return new TouchIDError(error, details);
+  return new TouchIDError(normalizedError, details);
 }

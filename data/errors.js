@@ -4,10 +4,16 @@ const codes = {
     LAErrorUserCancel: 'LAErrorUserCancel',
     LAErrorUserFallback: 'LAErrorUserFallback',
     LAErrorSystemCancel: 'LAErrorSystemCancel',
+    LAErrorAppCancel: 'LAErrorAppCancel',
+    LAErrorInvalidContext: 'LAErrorInvalidContext',
+    LAErrorNotInteractive: 'LAErrorNotInteractive',
     LAErrorPasscodeNotSet: 'LAErrorPasscodeNotSet',
     LAErrorTouchIDNotAvailable: 'LAErrorTouchIDNotAvailable',
     LAErrorTouchIDNotEnrolled: 'LAErrorTouchIDNotEnrolled',
     LAErrorTouchIDLockout: 'LAErrorTouchIDLockout',
+    LAErrorBiometryNotAvailable: 'LAErrorBiometryNotAvailable',
+    LAErrorBiometryNotEnrolled: 'LAErrorBiometryNotEnrolled',
+    LAErrorBiometryLockout: 'LAErrorBiometryLockout',
     RCTTouchIDNotSupported: 'RCTTouchIDNotSupported',
     RCTTouchIDUnknownError: 'RCTTouchIDUnknownError'
   },
@@ -51,6 +57,15 @@ const iOSErrors = {
   [codes.iOSCodes.LAErrorSystemCancel]: {
     message: 'Authentication was canceled by system—for example, if another application came to foreground while the authentication dialog was up.'
   },
+  [codes.iOSCodes.LAErrorAppCancel]: {
+    message: 'Authentication was canceled because the application moved to background.'
+  },
+  [codes.iOSCodes.LAErrorInvalidContext]: {
+    message: 'Authentication could not continue because the context became invalid.'
+  },
+  [codes.iOSCodes.LAErrorNotInteractive]: {
+    message: 'Authentication could not start because user interaction is not allowed.'
+  },
   [codes.iOSCodes.LAErrorPasscodeNotSet]: {
     message: 'Authentication could not start because the passcode is not set on the device.'
   },
@@ -62,6 +77,15 @@ const iOSErrors = {
   },
   [codes.iOSCodes.LAErrorTouchIDLockout]: {
     message: 'Authentication failed because of too many failed attempts.'
+  },
+  [codes.iOSCodes.LAErrorBiometryNotAvailable]: {
+    message: 'Authentication could not start because biometry is not available on the device.'
+  },
+  [codes.iOSCodes.LAErrorBiometryNotEnrolled]: {
+    message: 'Authentication could not start because biometry has no enrolled identities.'
+  },
+  [codes.iOSCodes.LAErrorBiometryLockout]: {
+    message: 'Authentication failed because of too many biometry attempts.'
   },
   [codes.iOSCodes.RCTTouchIDUnknownError]: {
     message: 'Could not authenticate for an unknown reason.'

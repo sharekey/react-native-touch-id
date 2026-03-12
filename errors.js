@@ -31,10 +31,14 @@ const getError = (code) => {
     return errors.USER_CANCELED;
 
   case codes.iOSCodes.LAErrorSystemCancel:
+  case codes.iOSCodes.LAErrorAppCancel:
+  case codes.iOSCodes.LAErrorInvalidContext:
+  case codes.iOSCodes.LAErrorNotInteractive:
   case codes.androidApiCodes.FINGERPRINT_ERROR_CANCELED:
     return errors.SYSTEM_CANCELED;
 
   case codes.iOSCodes.LAErrorTouchIDNotAvailable: // does this mean hw not present rather than not available?
+  case codes.iOSCodes.LAErrorBiometryNotAvailable:
   case codes.androidApiCodes.FINGERPRINT_ERROR_HW_UNAVAILABLE:
   case codes.androidModuleCodes.NOT_AVAILABLE:
     return errors.NOT_AVAILABLE;
@@ -44,6 +48,7 @@ const getError = (code) => {
     return errors.NOT_SUPPORTED;
 
   case codes.iOSCodes.LAErrorTouchIDNotEnrolled:
+  case codes.iOSCodes.LAErrorBiometryNotEnrolled:
   case codes.androidApiCodes.FINGERPRINT_ERROR_NO_FINGERPRINTS:
   case codes.androidModuleCodes.NOT_ENROLLED:
     return errors.NOT_ENROLLED;
@@ -73,6 +78,7 @@ const getError = (code) => {
     return errors.USER_FALLBACK;
 
   case codes.iOSCodes.LAErrorTouchIDLockout:
+  case codes.iOSCodes.LAErrorBiometryLockout:
     return errors.LOCKOUT;
 
   default:

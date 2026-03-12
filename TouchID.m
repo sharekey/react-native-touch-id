@@ -125,7 +125,15 @@ RCT_EXPORT_METHOD(authenticate: (NSString *)reason
         case LAErrorSystemCancel:
             errorReason = @"LAErrorSystemCancel";
             break;
-            
+
+        case LAErrorAppCancel:
+            errorReason = @"LAErrorAppCancel";
+            break;
+
+        case LAErrorInvalidContext:
+            errorReason = @"LAErrorInvalidContext";
+            break;
+
         case LAErrorPasscodeNotSet:
             errorReason = @"LAErrorPasscodeNotSet";
             break;
@@ -141,9 +149,33 @@ RCT_EXPORT_METHOD(authenticate: (NSString *)reason
         case LAErrorTouchIDLockout:
             errorReason = @"LAErrorTouchIDLockout";
             break;
-            
+
         default:
-            errorReason = @"RCTTouchIDUnknownError";
+            if (@available(iOS 11, *)) {
+                switch (error.code) {
+                    case LAErrorNotInteractive:
+                        errorReason = @"LAErrorNotInteractive";
+                        break;
+
+                    case LAErrorBiometryNotAvailable:
+                        errorReason = @"LAErrorBiometryNotAvailable";
+                        break;
+
+                    case LAErrorBiometryNotEnrolled:
+                        errorReason = @"LAErrorBiometryNotEnrolled";
+                        break;
+
+                    case LAErrorBiometryLockout:
+                        errorReason = @"LAErrorBiometryLockout";
+                        break;
+
+                    default:
+                        errorReason = @"RCTTouchIDUnknownError";
+                        break;
+                }
+            } else {
+                errorReason = @"RCTTouchIDUnknownError";
+            }
             break;
     }
     
